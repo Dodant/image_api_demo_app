@@ -6,17 +6,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +22,7 @@ import com.example.demo.ui.theme.DemoTheme
 import com.example.demo.api.sendPostRequest
 import com.example.demo.viewmodel.ImageViewModel
 import com.example.demo.viewmodel.RadioButtonViewModel
+import com.example.demo.component.*
 import androidx.compose.foundation.Image
 
 
@@ -38,135 +35,6 @@ class MainActivity : ComponentActivity() {
                 Greeting(modifier = Modifier, viewModel)
             }
         }
-    }
-}
-
-@Composable
-fun AIButton(onClick: () -> Unit, text: String, wip: Boolean = false, repo: String = "") {
-    Column{
-        Button(
-            onClick = onClick,
-            border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-            shape = RoundedCornerShape(50.dp),
-            modifier = Modifier.width(1200.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(red = 28, green = 64, blue = 106),
-                contentColor = Color(red = 223, green = 99, blue = 50)
-            )
-        ) {
-            if (wip) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text("Work in Progress", style = TextStyle(fontSize = 30.sp), color = Color(red = 114, green = 209, blue = 101))
-                }
-            } else {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(repo, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-    }
-}
-
-@Composable
-fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, text2: String, repo1: String, repo2: String) {
-    Column {
-        Row{
-            Button(
-                onClick = onClick1,
-                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier.width(590.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(red = 28, green = 64, blue = 106),
-                    contentColor = Color(red = 223, green = 99, blue = 50)
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text1, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(repo1, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
-                }
-            }
-            Spacer(modifier = Modifier.width(20.dp))
-            Button(
-                onClick = onClick2,
-                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(50.dp),
-                modifier = Modifier.width(590.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(red = 28, green = 64, blue = 106),
-                    contentColor = Color(red = 223, green = 99, blue = 50)
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text2, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(
-                        repo2,
-                        style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium),
-                        color = Color(red = 216, green = 251, blue = 210)
-                    )
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-    }
-}
-
-@Composable
-fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Boolean, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painter,
-            contentDescription = contentDescription,
-            modifier = Modifier.size(350.dp)
-        )
-        if (selected) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-            )
-        }
-    }
-}
-
-@Composable
-fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
-    val selectedOption by viewModel.selectedOption.collectAsState()
-
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample),
-            contentDescription = "Option 1",
-            selected = selectedOption == 0,
-            onClick = { viewModel.selectOption(0)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample1),
-            contentDescription = "Option 2",
-            selected = selectedOption == 1,
-            onClick = { viewModel.selectOption(1)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample2),
-            contentDescription = "Option 3",
-            selected = selectedOption == 2,
-            onClick = { viewModel.selectOption(2)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
     }
 }
 
