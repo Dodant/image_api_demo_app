@@ -48,7 +48,7 @@ fun AIButton(onClick: () -> Unit, text: String, wip: Boolean = false, repo: Stri
             onClick = onClick,
             border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
             shape = RoundedCornerShape(50.dp),
-            modifier = Modifier.width(950.dp),
+            modifier = Modifier.width(1200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(red = 28, green = 64, blue = 106),
                 contentColor = Color(red = 223, green = 99, blue = 50)
@@ -71,12 +71,51 @@ fun AIButton(onClick: () -> Unit, text: String, wip: Boolean = false, repo: Stri
 }
 
 @Composable
-fun RadioImageButton(
-    painter: Painter,
-    contentDescription: String?,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
+fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, text2: String, repo1: String, repo2: String) {
+    Column {
+        Row{
+            Button(
+                onClick = onClick1,
+                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier.width(590.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(red = 28, green = 64, blue = 106),
+                    contentColor = Color(red = 223, green = 99, blue = 50)
+                )
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text1, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
+                    Text(repo1, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
+                }
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            Button(
+                onClick = onClick2,
+                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier.width(590.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(red = 28, green = 64, blue = 106),
+                    contentColor = Color(red = 223, green = 99, blue = 50)
+                )
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text2, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
+                    Text(
+                        repo2,
+                        style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium),
+                        color = Color(red = 216, green = 251, blue = 210)
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+    }
+}
+
+@Composable
+fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Boolean, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .clickable(onClick = onClick),
@@ -137,9 +176,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val vm = RadioButtonViewModel()
     val selectedOption by vm.selectedOption.collectAsState()
 
-    Surface(
-        color = MaterialTheme.colorScheme.inverseOnSurface,
-    ) {
+    Surface(color = MaterialTheme.colorScheme.inverseOnSurface,) {
         Row(modifier = modifier.padding(24.dp)) {
             Column(
                 modifier = modifier.weight(1f),
@@ -156,22 +193,23 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     Log.i("AIButton", selectedOption.toString())
                     sendPostRequest(context, selectedOption, method="gan", viewModel)
                 }, text = "Outpainting (GAN)", repo = "gh:basilevh/image-outpainting")
-                AIButton(onClick = {
-                    Log.i("AIButton", selectedOption.toString())
-                    sendPostRequest(context, selectedOption, method="sd1", viewModel)
-                }, text = "Outpainting (Diffusion)", repo = "hf:runwayml/stable-diffusion-inpainting")
-                AIButton(onClick = {
-                    Log.i("AIButton", selectedOption.toString())
-                    sendPostRequest(context, selectedOption, method="sd2", viewModel)
-                }, text = "Outpainting (Diffusion)", repo = "hf:runwayml/stable-diffusion-2-inpainting")
-                AIButton(onClick = {
-                    Log.i("AIButton", selectedOption.toString())
-                    sendPostRequest(context, selectedOption, method="sr1", viewModel)
-                }, text = "Super Resolution", repo = "gh:xinntao/ESRGAN")
-                AIButton(onClick = {
-                    Log.i("AIButton", selectedOption.toString())
-                    sendPostRequest(context, selectedOption, method="sr2", viewModel)
-                }, text = "Super Resolution", repo = "gh:xinntao/Real-ESRGAN")
+
+                DoubleAIButton(
+                    onClick1 = {Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method="sd1", viewModel) },
+                    onClick2 = {Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method="sd2", viewModel) },
+                    text1 = "Outpainting (Diffusion)", text2 = "Outpainting (Diffusion)",
+                    repo1 = "hf:runwayml/SD-inpainting", repo2 = "hf:runwayml/SD-2-inpainting")
+
+                DoubleAIButton(
+                    onClick1 = {Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method="sr1", viewModel) },
+                    onClick2 = {Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method="sr2", viewModel) },
+                    text1 = "Super Resolution", text2 = "Super Resolution",
+                    repo1 = "gh:xinntao/ESRGAN", repo2 = "gh:xinntao/Real-ESRGAN")
+
                 AIButton(onClick = {   }, text = "Retargetting", wip = true)
                 AIButton(onClick = {   }, text = "ROI CROP", wip = true)
 
@@ -180,11 +218,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                 Text("Ta-da", style = TextStyle(fontSize = 70.sp))
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Box(
-                    modifier = Modifier
-                        .border(BorderStroke(5.dp, Color.Black), shape = RoundedCornerShape(50.dp))
-                        .size(950.dp)
-                ) {
+                Box(modifier = Modifier.border(BorderStroke(5.dp, Color.Black)).size(1200.dp)) {
                     viewModel.imageBitmap.value?.let { imageBitmap ->
                         Image(
                             bitmap = imageBitmap,
