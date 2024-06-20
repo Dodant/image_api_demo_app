@@ -39,7 +39,7 @@ fun AIButton(onClick: () -> Unit, text: String, wip: Boolean = false, repo: Stri
         Button(
             onClick = onClick,
             border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-            shape = RoundedCornerShape(50.dp),
+            shape = RoundedCornerShape(5.dp),
             modifier = Modifier.width(1200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(red = 28, green = 64, blue = 106),
@@ -69,7 +69,7 @@ fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, te
             Button(
                 onClick = onClick1,
                 border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(50.dp),
+                shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.width(590.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(red = 28, green = 64, blue = 106),
@@ -85,7 +85,7 @@ fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, te
             Button(
                 onClick = onClick2,
                 border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(50.dp),
+                shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.width(590.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(red = 28, green = 64, blue = 106),
@@ -116,7 +116,7 @@ fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Bo
         Image(
             painter = painter,
             contentDescription = contentDescription,
-            modifier = Modifier.size(350.dp)
+            modifier = Modifier.width(350.dp)
         )
         if (selected) {
             Box(
@@ -136,7 +136,8 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(20.dp)
+            .width(1200.dp)
     ) {
         RadioImageButton(
             painter = painterResource(id = R.drawable.sample),

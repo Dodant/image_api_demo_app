@@ -24,6 +24,8 @@ import com.example.demo.viewmodel.ImageViewModel
 import com.example.demo.viewmodel.RadioButtonViewModel
 import com.example.demo.component.*
 import androidx.compose.foundation.Image
+import java.time.Duration
+import java.time.Instant
 
 
 class MainActivity : ComponentActivity() {
@@ -78,15 +80,14 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     text1 = "Super Resolution", text2 = "Super Resolution",
                     repo1 = "gh:xinntao/ESRGAN", repo2 = "gh:xinntao/Real-ESRGAN")
 
-                AIButton(onClick = {   }, text = "Retargetting", wip = true)
-                AIButton(onClick = {   }, text = "ROI CROP", wip = true)
+                AIButton(onClick = {
+                    Log.i("AIButton", selectedOption.toString())
+                    sendPostRequest(context, selectedOption, method="sod", viewModel)
+                }, text = "CROP w/ SOD", repo = "gh:backseason/DFI")
 
-                Spacer(modifier = Modifier.height(25.dp))
-
-                Text("Ta-da", style = TextStyle(fontSize = 70.sp))
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Box(modifier = Modifier.border(BorderStroke(5.dp, Color.Black)).size(1200.dp)) {
+                Box(modifier = Modifier.border(BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50))).size(1200.dp)) {
                     viewModel.imageBitmap.value?.let { imageBitmap ->
                         Image(
                             bitmap = imageBitmap,

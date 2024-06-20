@@ -18,6 +18,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import com.example.demo.viewmodel.ImageViewModel
+import java.time.Duration
+import java.time.Instant
 
 @SuppressLint("UseCompatLoadingForDrawables")
 fun getImageMultipart(context: Context, resourceId: Int): MultipartBody.Part {
@@ -32,6 +34,7 @@ fun getImageMultipart(context: Context, resourceId: Int): MultipartBody.Part {
 }
 
 fun sendPostRequest(context: Context, selectedOption: Int, method: String, viewModel: ImageViewModel) {
+    val start = Instant.now()
     val apiService = RetrofitClient.instance.create(ApiService::class.java)
     val imagePart: MultipartBody.Part? = when (selectedOption) {
         0 -> getImageMultipart(context, R.drawable.sample)
@@ -49,6 +52,9 @@ fun sendPostRequest(context: Context, selectedOption: Int, method: String, viewM
                 val bitmap = BitmapFactory.decodeStream(response.body()?.byteStream())
                 val imageBitmap = bitmap.asImageBitmap()
                 viewModel.imageBitmap.value = imageBitmap
+                val end = Instant.now()
+                val duration = Duration.between(start, end).toMillis()
+                Log.i("AIButton", duration.toString())
             } else {
                 Log.e("Retrofit", "POST request failed: ${response.code()}")
             }
