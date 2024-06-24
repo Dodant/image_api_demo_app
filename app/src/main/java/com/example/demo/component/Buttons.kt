@@ -112,7 +112,7 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(20.dp).width(1200.dp)
+        modifier = Modifier.width(1500.dp)
     ) {
         RadioImageButton(
             painter = painterResource(id = R.drawable.sample),
