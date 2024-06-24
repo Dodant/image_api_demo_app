@@ -24,6 +24,8 @@ import com.example.demo.viewmodel.ImageViewModel
 import com.example.demo.viewmodel.RadioButtonViewModel
 import com.example.demo.component.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.shape.RoundedCornerShape
+import java.net.NetworkInterface
 import java.time.Duration
 import java.time.Instant
 
@@ -47,15 +49,15 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val selectedOption by vm.selectedOption.collectAsState()
 
     Surface(color = MaterialTheme.colorScheme.inverseOnSurface,) {
-        Row(modifier = modifier.padding(24.dp)) {
+        Row(modifier = modifier.padding(20.dp)) {
             Column(
                 modifier = modifier.weight(1f),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Image AI API DEMO", style = TextStyle(fontSize = 110.sp), fontWeight = FontWeight.Bold)
-                Text("Pick'em", style = TextStyle(fontSize = 70.sp))
-                Spacer(modifier = Modifier.height(30.dp))
+                Text("Image AI API DEMO", style = TextStyle(fontSize = 90.sp), fontWeight = FontWeight.Bold)
+                Text("Pick'em", style = TextStyle(fontSize = 50.sp), fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(20.dp))
 
                 RadioImageButtonGroup(vm)
 
@@ -80,14 +82,18 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     text1 = "Super Resolution", text2 = "Super Resolution",
                     repo1 = "gh:xinntao/ESRGAN", repo2 = "gh:xinntao/Real-ESRGAN")
 
+                Spacer(modifier = Modifier.height(20.dp))
+
                 AIButton(onClick = {
                     Log.i("AIButton", selectedOption.toString())
                     sendPostRequest(context, selectedOption, method="sod", viewModel)
                 }, text = "CROP w/ SOD", repo = "gh:backseason/DFI")
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-                Box(modifier = Modifier.border(BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50))).size(1200.dp)) {
+                Box(modifier = Modifier
+                    .border(BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)))
+                    .size(1200.dp)) {
                     viewModel.imageBitmap.value?.let { imageBitmap ->
                         Image(
                             bitmap = imageBitmap,
@@ -95,6 +101,22 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                             modifier = Modifier.fillMaxSize()
                         )
                     }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    onClick = { Log.i("AIButton", selectedOption.toString())
+                        sendPostRequest(context, selectedOption, method="auto", viewModel) },
+                    border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+                    shape = RoundedCornerShape(5.dp),
+                    modifier = Modifier.width(1200.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(red = 28, green = 64, blue = 106),
+                        contentColor = Color(red = 223, green = 99, blue = 50)
+                    )
+                ) {
+                    Text("AUTO", style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
                 }
             }
         }

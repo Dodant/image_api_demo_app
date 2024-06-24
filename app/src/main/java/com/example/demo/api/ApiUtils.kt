@@ -40,6 +40,7 @@ fun sendPostRequest(context: Context, selectedOption: Int, method: String, viewM
         0 -> getImageMultipart(context, R.drawable.sample)
         1 -> getImageMultipart(context, R.drawable.sample1)
         2 -> getImageMultipart(context, R.drawable.sample2)
+        3 -> getImageMultipart(context, R.drawable.sample3)
         else -> null
     }
     val methodPart = method.toRequestBody("text/plain".toMediaTypeOrNull())

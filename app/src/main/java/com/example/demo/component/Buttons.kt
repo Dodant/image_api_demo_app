@@ -34,95 +34,73 @@ import com.example.demo.viewmodel.RadioButtonViewModel
 import com.example.demo.R
 
 @Composable
-fun AIButton(onClick: () -> Unit, text: String, wip: Boolean = false, repo: String = "") {
-    Column{
-        Button(
-            onClick = onClick,
-            border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-            shape = RoundedCornerShape(5.dp),
-            modifier = Modifier.width(1200.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(red = 28, green = 64, blue = 106),
-                contentColor = Color(red = 223, green = 99, blue = 50)
-            )
-        ) {
-            if (wip) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text("Work in Progress", style = TextStyle(fontSize = 30.sp), color = Color(red = 114, green = 209, blue = 101))
-                }
-            } else {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(repo, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
-                }
-            }
+fun AIButton(onClick: () -> Unit, text: String, repo: String = "") {
+    Button(
+        onClick = onClick,
+        border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+        shape = RoundedCornerShape(5.dp),
+        modifier = Modifier.width(1200.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(red = 28, green = 64, blue = 106),
+            contentColor = Color(red = 223, green = 99, blue = 50)
+        )
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
+            Text(repo, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
         }
-        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
 @Composable
 fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, text2: String, repo1: String, repo2: String) {
-    Column {
-        Row{
-            Button(
-                onClick = onClick1,
-                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(5.dp),
-                modifier = Modifier.width(590.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(red = 28, green = 64, blue = 106),
-                    contentColor = Color(red = 223, green = 99, blue = 50)
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text1, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(repo1, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
-                }
-            }
-            Spacer(modifier = Modifier.width(20.dp))
-            Button(
-                onClick = onClick2,
-                border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
-                shape = RoundedCornerShape(5.dp),
-                modifier = Modifier.width(590.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(red = 28, green = 64, blue = 106),
-                    contentColor = Color(red = 223, green = 99, blue = 50)
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text2, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
-                    Text(
-                        repo2,
-                        style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium),
-                        color = Color(red = 216, green = 251, blue = 210)
-                    )
-                }
+    Row{
+        Button(
+            onClick = onClick1,
+            border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier.width(590.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(red = 28, green = 64, blue = 106),
+                contentColor = Color(red = 223, green = 99, blue = 50)
+            )
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text1, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
+                Text(repo1, style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium), color = Color(red = 216, green = 251, blue = 210))
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.width(20.dp))
+
+        Button(
+            onClick = onClick2,
+            border = BorderStroke(5.dp, Color(red = 223, green = 99, blue = 50)),
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier.width(590.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(red = 28, green = 64, blue = 106),
+                contentColor = Color(red = 223, green = 99, blue = 50)
+            )
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text2, style = TextStyle(fontSize = 45.sp, fontWeight = FontWeight.Bold))
+                Text(
+                    repo2,
+                    style = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Medium),
+                    color = Color(red = 216, green = 251, blue = 210)
+                )
+            }
+        }
     }
 }
 
 @Composable
 fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Boolean, onClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painter,
-            contentDescription = contentDescription,
-            modifier = Modifier.width(350.dp)
-        )
+    Box(modifier = Modifier.clickable(onClick = onClick), contentAlignment = Alignment.Center) {
+        Image(painter = painter, contentDescription = contentDescription, modifier = Modifier.width(250.dp))
         if (selected) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-            )
+            Box(modifier = Modifier.matchParentSize())
         }
     }
 }
@@ -134,10 +112,7 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp)
-            .width(1200.dp)
+        modifier = Modifier.fillMaxWidth().padding(20.dp).width(1200.dp)
     ) {
         RadioImageButton(
             painter = painterResource(id = R.drawable.sample),
@@ -158,6 +133,13 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
             contentDescription = "Option 3",
             selected = selectedOption == 2,
             onClick = { viewModel.selectOption(2)
+                Log.i("RadioImageButtonGroup", selectedOption.toString())}
+        )
+        RadioImageButton(
+            painter = painterResource(id = R.drawable.sample3),
+            contentDescription = "Option 4",
+            selected = selectedOption == 3,
+            onClick = { viewModel.selectOption(3)
                 Log.i("RadioImageButtonGroup", selectedOption.toString())}
         )
     }
