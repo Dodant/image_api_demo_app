@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -96,12 +97,20 @@ fun DoubleAIButton(onClick1: () -> Unit, onClick2: () -> Unit, text1: String, te
 }
 
 @Composable
-fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Boolean, onClick: () -> Unit) {
-    Box(modifier = Modifier.clickable(onClick = onClick), contentAlignment = Alignment.Center) {
-        Image(painter = painter, contentDescription = contentDescription, modifier = Modifier.width(250.dp))
-        if (selected) {
-            Box(modifier = Modifier.matchParentSize())
-        }
+fun RadioImageButton(id: Int, num: Int, selectedOption: Int, viewModel: RadioButtonViewModel) {
+    Box(
+        modifier = Modifier.clickable(
+            onClick = {
+                viewModel.selectOption(num)
+                Log.i("RadioImageButtonGroup", selectedOption.toString())
+            }
+        ),
+        contentAlignment = Alignment.Center
+    ) {
+        // For emul
+        // Image(modifier = Modifier.width(340.dp).height(340.dp), painter = painterResource(id), contentDescription = "Option $num", contentScale = ContentScale.Crop)
+        Image(modifier = Modifier.width(250.dp).height(230.dp), painter = painterResource(id), contentDescription = "Option $num", contentScale = ContentScale.Crop)
+        if (selectedOption == num) Box(modifier = Modifier.matchParentSize())
     }
 }
 
@@ -109,38 +118,48 @@ fun RadioImageButton(painter: Painter, contentDescription: String?, selected: Bo
 fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
     val selectedOption by viewModel.selectedOption.collectAsState()
 
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.width(1500.dp)
-    ) {
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample),
-            contentDescription = "Option 1",
-            selected = selectedOption == 0,
-            onClick = { viewModel.selectOption(0)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample1),
-            contentDescription = "Option 2",
-            selected = selectedOption == 1,
-            onClick = { viewModel.selectOption(1)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample2),
-            contentDescription = "Option 3",
-            selected = selectedOption == 2,
-            onClick = { viewModel.selectOption(2)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
-        RadioImageButton(
-            painter = painterResource(id = R.drawable.sample3),
-            contentDescription = "Option 4",
-            selected = selectedOption == 3,
-            onClick = { viewModel.selectOption(3)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())}
-        )
+    Column {
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test1, num = 1, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test2, num = 2, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test3, num = 3, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test4, num = 4, selectedOption = selectedOption, viewModel = viewModel)
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test5, num = 5, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test6, num = 6, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test7, num = 7, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test8, num = 8, selectedOption = selectedOption, viewModel = viewModel)
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test9, num = 9, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test10, num = 10, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test11, num = 11, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test12, num = 12, selectedOption = selectedOption, viewModel = viewModel)
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test13, num = 13, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test14, num = 14, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test15, num = 15, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test16, num = 16, selectedOption = selectedOption, viewModel = viewModel)
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test17, num = 17, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test18, num = 18, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test19, num = 19, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test20, num = 20, selectedOption = selectedOption, viewModel = viewModel)
+        }
     }
 }

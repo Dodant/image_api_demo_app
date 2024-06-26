@@ -46,108 +46,136 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val context = LocalContext.current
     val vm = RadioButtonViewModel()
     val selectedOption by vm.selectedOption.collectAsState()
-    val buttonFontSize = 40.sp
+    // For emul
+//    val customWidth = 340.dp
+//    val customHeight = 150.dp
+//    val buttonFontSize = 50.sp
+    // For Demo
+    val customWidth = 250.dp
+    val customHeight = 110.dp
+    val buttonFontSize = 35.sp
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
-    ) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.inverseOnSurface)) {
         Row(modifier = modifier.padding(20.dp)) {
-            Column(
-                modifier = modifier.weight(1f),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Demo", style = TextStyle(fontSize = 70.sp), fontWeight = FontWeight.Bold)
-
-                Spacer(modifier = Modifier.height(20.dp))
+            Column(modifier = modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Digital AI Frame", style = TextStyle(fontSize = 80.sp), fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(40.dp))
+                Text("Gallery", style = TextStyle(fontSize = 50.sp), fontWeight = FontWeight.Medium)
+                Spacer(modifier = Modifier.height(30.dp))
 
                 RadioImageButtonGroup(vm)
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(60.dp))
 
-                Row(
-                    modifier = Modifier
-                        .width(1500.dp)
-                        .border(BorderStroke(8.dp, Color(red = 223, green = 99, blue = 50))),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = {
-                            Log.i("AIButton", selectedOption.toString())
-                            sendPostRequest(context, selectedOption, method = "gan", viewModel)
-                        },
-                        border = BorderStroke(2.dp, Color(red = 223, green = 99, blue = 50)),
-                        shape = RoundedCornerShape(5.dp),
-                        modifier = Modifier.weight(1f)
+                Text("Methods", style = TextStyle(fontSize = 50.sp), fontWeight = FontWeight.Medium)
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally){
+                    Row(
+                        modifier = Modifier.width(1500.dp),
+                        horizontalArrangement = Arrangement.Center,
                     ) {
-                        Text(
-                            "Outpainting (GAN)",
-                            style = TextStyle(
-                                fontSize = buttonFontSize,
-                                fontWeight = FontWeight.Bold
+                        Button(
+                            onClick = {
+                                Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method = "gan", viewModel)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .width(customWidth)
+                                .height(customHeight)
+                        ) {
+                            Text(
+                                "Outpainting (GAN)",
+                                style = TextStyle(
+                                    fontSize = buttonFontSize,
+                                    fontWeight = FontWeight.Medium
+                                )
                             )
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            Log.i("AIButton", selectedOption.toString())
-                            sendPostRequest(context, selectedOption, method = "sd1", viewModel)
-                        },
-                        border = BorderStroke(2.dp, Color(red = 223, green = 99, blue = 50)),
-                        shape = RoundedCornerShape(5.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(
-                            "Outpainting (Diffusion)",
-                            style = TextStyle(
-                                fontSize = buttonFontSize,
-                                fontWeight = FontWeight.Bold
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Button(
+                            onClick = {
+                                Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method = "sd1", viewModel)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .width(customWidth)
+                                .height(customHeight)
+                        ) {
+                            Text(
+                                "Outpainting (Diffusion)",
+                                style = TextStyle(
+                                    fontSize = buttonFontSize,
+                                    fontWeight = FontWeight.Medium
+                                )
                             )
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            Log.i("AIButton", selectedOption.toString())
-                            sendPostRequest(context, selectedOption, method = "sr1", viewModel)
-                        },
-                        border = BorderStroke(2.dp, Color(red = 223, green = 99, blue = 50)),
-                        shape = RoundedCornerShape(5.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(
-                            "Super Resolusion",
-                            style = TextStyle(
-                                fontSize = buttonFontSize,
-                                fontWeight = FontWeight.Bold
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Button(
+                            onClick = {
+                                Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method = "sr1", viewModel)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .width(customWidth)
+                                .height(customHeight)
+                        ) {
+                            Text(
+                                "Super Resolusion",
+                                style = TextStyle(
+                                    fontSize = buttonFontSize,
+                                    fontWeight = FontWeight.Medium
+                                )
                             )
-                        )
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Button(
+                            onClick = {
+                                Log.i("AIButton", selectedOption.toString())
+                                sendPostRequest(context, selectedOption, method = "sod1", viewModel)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .width(customWidth)
+                                .height(customHeight)
+                        ) {
+                            Text(
+                                "Crop with Salient OD",
+                                style = TextStyle(
+                                    fontSize = buttonFontSize,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            )
+                        }
+
                     }
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
-                            sendPostRequest(context, selectedOption, method = "sod1", viewModel)
+                            sendPostRequest(context, selectedOption, method = "auto", viewModel)
                         },
-                        border = BorderStroke(2.dp, Color(red = 223, green = 99, blue = 50)),
-                        shape = RoundedCornerShape(5.dp),
-                        modifier = Modifier.weight(1f)
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier
+                            .width(customWidth * 4 + 10.dp * 3)
+                            .height(60.dp)
                     ) {
                         Text(
-                            "Crop w/ Salient OD",
+                            "Auto",
                             style = TextStyle(
                                 fontSize = buttonFontSize,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Medium
                             )
                         )
                     }
                 }
-
-                Spacer(modifier = Modifier.height(20.dp))
             }
         }
 
@@ -155,7 +183,8 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
             Image(
                 bitmap = imageBitmap,
                 contentDescription = "Selected Image",
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .clickable { viewModel.imageBitmap.value = null }
             )
         }
