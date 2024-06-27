@@ -191,6 +191,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
+                            sendPostRequest(context, selectedOption, method = "original", viewModel)
                             sendPostRequest(context, selectedOption, method = "auto", viewModel)
                         },
                         shape = RoundedCornerShape(10.dp),
