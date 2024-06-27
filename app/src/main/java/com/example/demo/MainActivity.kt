@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,139 +53,66 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val customHeight = 80.dp
     val buttonFontSize = 20.sp
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colorScheme.inverseOnSurface)) {
+    Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.inverseOnSurface)) {
         Row(modifier = modifier.padding(20.dp)) {
             Column(modifier = modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Digital AI Frame", style = TextStyle(fontSize = 50.sp, color = MaterialTheme.colorScheme.onBackground),
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Bold)
-
+                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
+                    fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif)
                 Spacer(modifier = Modifier.height(20.dp))
-
                 Text("Gallery", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
-                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Medium)
-
+                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
+                    fontWeight = FontWeight.Medium, fontFamily = FontFamily.Serif)
                 Spacer(modifier = Modifier.height(20.dp))
-
                 RadioImageButtonGroup(vm)
-
                 Spacer(modifier = Modifier.height(30.dp))
-
                 Text("Methods", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
-                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Medium)
-
-                Spacer(modifier = Modifier.height(30.dp))
-
+                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
+                    fontWeight = FontWeight.Medium, fontFamily = FontFamily.Serif)
+                Spacer(modifier = Modifier.height(20.dp))
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
-                            sendPostRequest(context, selectedOption, method = "original", viewModel)
-                        },
+                            sendPostRequest(context, selectedOption, method = "original", viewModel) },
                         shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier
-                            .width(customWidth * 4 + 10.dp * 3)
-                            .height(60.dp)
-                    ) {
-                        Text(
-                            "Original",
-                            style = TextStyle(
-                                fontSize = 27.sp,
-                                fontWeight = FontWeight.Medium
-                            )
-                        )
-                    }
-
+                        modifier = Modifier.width(customWidth * 4 + 10.dp * 3).height(60.dp)
+                    ) { Text("Original", style = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Medium)) }
                     Spacer(modifier = Modifier.height(10.dp))
-
-                    Row(
-                        modifier = Modifier.width(1500.dp),
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-
-
+                    Row(modifier = Modifier.width(1500.dp), horizontalArrangement = Arrangement.Center) {
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "gan", viewModel)
-                            },
+                                sendPostRequest(context, selectedOption, method = "gan", viewModel) },
                             shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .width(customWidth)
-                                .height(customHeight)
-                        ) {
-                            Text(
-                                "Outpainting (GAN)",
-                                style = TextStyle(
-                                    fontSize = buttonFontSize,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            )
-                        }
+                            modifier = Modifier.width(customWidth).height(customHeight)
+                        ) { Text("Outpainting (GAN)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
                         Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sd1", viewModel)
-                            },
+                                sendPostRequest(context, selectedOption, method = "sd1", viewModel) },
                             shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .width(customWidth)
-                                .height(customHeight)
-                        ) {
-                            Text(
-                                "Outpainting (Diffusion)",
-                                style = TextStyle(
-                                    fontSize = buttonFontSize,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            )
-                        }
+                            modifier = Modifier.width(customWidth).height(customHeight)
+                        ) { Text("Outpainting (Diffusion)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
                         Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sr1", viewModel)
-                            },
+                                sendPostRequest(context, selectedOption, method = "sr1", viewModel) },
                             shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .width(customWidth)
-                                .height(customHeight)
-                        ) {
-                            Text(
-                                "Super Resolusion",
-                                style = TextStyle(
-                                    fontSize = buttonFontSize,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            )
-                        }
+                            modifier = Modifier.width(customWidth).height(customHeight)
+                        ) { Text("Super Resolusion", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
                         Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sod1", viewModel)
-                            },
+                                sendPostRequest(context, selectedOption, method = "sod1", viewModel) },
                             shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .width(customWidth)
-                                .height(customHeight)
-                        ) {
-                            Text(
-                                "Crop with Salient OD",
-                                style = TextStyle(
-                                    fontSize = buttonFontSize,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            )
-                        }
-
+                            modifier = Modifier.width(customWidth).height(customHeight)
+                        ) { Text("Crop with Salient OD", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
                     }
-
                     Spacer(modifier = Modifier.height(10.dp))
-
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
@@ -195,18 +120,8 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                             sendPostRequest(context, selectedOption, method = "auto", viewModel)
                         },
                         shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier
-                            .width(customWidth * 4 + 10.dp * 3)
-                            .height(60.dp)
-                    ) {
-                        Text(
-                            "All At Once",
-                            style = TextStyle(
-                                fontSize = 27.sp,
-                                fontWeight = FontWeight.Medium
-                            )
-                        )
-                    }
+                        modifier = Modifier.width(customWidth * 4 + 10.dp * 3).height(60.dp)
+                    ) {Text("All At Once", style = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Medium)) }
                 }
             }
         }
@@ -215,9 +130,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
             Image(
                 bitmap = imageBitmap,
                 contentDescription = "Selected Image",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clickable { viewModel.imageBitmap.value = null }
+                modifier = Modifier.fillMaxSize().clickable { viewModel.imageBitmap.value = null }
             )
         }
     }
@@ -227,7 +140,5 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
 @Composable
 fun GreetingPreview() {
     val viewModel = ImageViewModel()
-    DemoTheme {
-        Greeting (modifier = Modifier, viewModel)
-    }
+    DemoTheme { Greeting (modifier = Modifier, viewModel) }
 }
