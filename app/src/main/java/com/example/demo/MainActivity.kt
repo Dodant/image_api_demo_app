@@ -51,33 +51,63 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
 //    val customHeight = 150.dp
 //    val buttonFontSize = 50.sp
     // For Demo
-    val customWidth = 250.dp
-    val customHeight = 110.dp
-    val buttonFontSize = 35.sp
+    val customWidth = 200.dp
+    val customHeight = 80.dp
+    val buttonFontSize = 20.sp
 
     Box(modifier = Modifier
         .fillMaxSize()
         .background(MaterialTheme.colorScheme.inverseOnSurface)) {
         Row(modifier = modifier.padding(20.dp)) {
             Column(modifier = modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Digital AI Frame", style = TextStyle(fontSize = 80.sp), fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(40.dp))
-                Text("Gallery", style = TextStyle(fontSize = 50.sp), fontWeight = FontWeight.Medium)
-                Spacer(modifier = Modifier.height(30.dp))
+                Text("Digital AI Frame", style = TextStyle(fontSize = 50.sp, color = MaterialTheme.colorScheme.onBackground),
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Bold)
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text("Gallery", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
+                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Medium)
+
+                Spacer(modifier = Modifier.height(20.dp))
 
                 RadioImageButtonGroup(vm)
 
-                Spacer(modifier = Modifier.height(60.dp))
+                Spacer(modifier = Modifier.height(30.dp))
 
-                Text("Methods", style = TextStyle(fontSize = 50.sp), fontWeight = FontWeight.Medium)
+                Text("Methods", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
+                    modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface), fontWeight = FontWeight.Medium)
 
                 Spacer(modifier = Modifier.height(30.dp))
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
+                    Button(
+                        onClick = {
+                            Log.i("AIButton", selectedOption.toString())
+                            sendPostRequest(context, selectedOption, method = "original", viewModel)
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier
+                            .width(customWidth * 4 + 10.dp * 3)
+                            .height(60.dp)
+                    ) {
+                        Text(
+                            "Original",
+                            style = TextStyle(
+                                fontSize = 27.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     Row(
                         modifier = Modifier.width(1500.dp),
                         horizontalArrangement = Arrangement.Center,
                     ) {
+
+
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
@@ -96,7 +126,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                                 )
                             )
                         }
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
@@ -115,7 +145,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                                 )
                             )
                         }
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
@@ -134,7 +164,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                                 )
                             )
                         }
-                        Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(9.dp))
                         Button(
                             onClick = {
                                 Log.i("AIButton", selectedOption.toString())
@@ -155,6 +185,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                         }
 
                     }
+
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Button(
@@ -168,9 +199,9 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                             .height(60.dp)
                     ) {
                         Text(
-                            "Auto",
+                            "All At Once",
                             style = TextStyle(
-                                fontSize = buttonFontSize,
+                                fontSize = 27.sp,
                                 fontWeight = FontWeight.Medium
                             )
                         )
