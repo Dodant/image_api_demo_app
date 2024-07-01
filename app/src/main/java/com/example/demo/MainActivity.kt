@@ -25,9 +25,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import java.time.LocalDate
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -39,14 +37,14 @@ class MainActivity : ComponentActivity() {
         val viewModel = ImageViewModel()
         setContent {
             DemoTheme {
-                Greeting(modifier = Modifier, viewModel)
+                Frame(modifier = Modifier, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
+fun Frame(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val context = LocalContext.current
     val vm = RadioButtonViewModel()
     val selectedOption by vm.selectedOption.collectAsState()
@@ -59,15 +57,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
         }
     }
 
-    // For emul
-//    val customWidth = 340.dp
-//    val customHeight = 150.dp
-//    val buttonFontSize = 50.sp
-
-    // For Demo
     val customWidth = 200.dp
-    val customHeight = 80.dp
-    val buttonFontSize = 20.sp
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -78,16 +68,20 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
                     fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif)
                 Spacer(modifier = Modifier.height(20.dp))
+
                 Text("Gallery", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
                     modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
                     fontWeight = FontWeight.Medium, fontFamily = FontFamily.Serif)
                 Spacer(modifier = Modifier.height(20.dp))
+
                 RadioImageButtonGroup(vm)
                 Spacer(modifier = Modifier.height(30.dp))
+
                 Text("Methods", style = TextStyle(fontSize = 30.sp,  color = MaterialTheme.colorScheme.onBackground),
                     modifier = Modifier.background(MaterialTheme.colorScheme.inverseOnSurface),
                     fontWeight = FontWeight.Medium, fontFamily = FontFamily.Serif)
                 Spacer(modifier = Modifier.height(20.dp))
+
                 Column(horizontalAlignment = Alignment.CenterHorizontally){
                     Button(
                         onClick = {
@@ -100,6 +94,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                     ) { Text("Original", style = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Medium)) }
 
                     Spacer(modifier = Modifier.height(10.dp))
+
 //                    Row(modifier = Modifier.width(1500.dp), horizontalArrangement = Arrangement.Center) {
 //                        Button(
 //                            onClick = {
@@ -142,6 +137,7 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
 //                        ) { Text("Crop with Salient OD", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
 //                    }
 //                    Spacer(modifier = Modifier.height(10.dp))
+
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
@@ -189,5 +185,5 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
 @Composable
 fun GreetingPreview() {
     val viewModel = ImageViewModel()
-    DemoTheme { Greeting (modifier = Modifier, viewModel) }
+    DemoTheme { Frame (modifier = Modifier, viewModel) }
 }
