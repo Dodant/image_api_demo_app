@@ -5,9 +5,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
-import androidx.compose.ui.graphics.asImageBitmap
 import android.util.Log
-import com.example.demo.R
+import androidx.compose.ui.graphics.asImageBitmap
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -17,6 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import com.example.demo.R
 import com.example.demo.viewmodel.ImageViewModel
 import java.time.Duration
 import java.time.Instant
@@ -58,6 +58,15 @@ fun sendPostRequest(context: Context, selectedOption: Int, method: String, viewM
         19 -> getImageMultipart(context, R.drawable.test19)
         20 -> getImageMultipart(context, R.drawable.test20)
         21 -> getImageMultipart(context, R.drawable.test21)
+
+//        22 -> getImageMultipart(context, R.drawable.test22)
+//        23 -> getImageMultipart(context, R.drawable.test23)
+//        24 -> getImageMultipart(context, R.drawable.test24)
+//        25 -> getImageMultipart(context, R.drawable.test25)
+//        26 -> getImageMultipart(context, R.drawable.test26)
+//        27 -> getImageMultipart(context, R.drawable.test27)
+//        28 -> getImageMultipart(context, R.drawable.test28)
+//        29 -> getImageMultipart(context, R.drawable.test29)
         else -> null
     }
     val methodPart = method.toRequestBody("text/plain".toMediaTypeOrNull())

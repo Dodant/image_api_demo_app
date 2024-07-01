@@ -25,6 +25,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import java.time.LocalDate
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {
@@ -44,16 +50,28 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
     val context = LocalContext.current
     val vm = RadioButtonViewModel()
     val selectedOption by vm.selectedOption.collectAsState()
+    var currentTime by remember { mutableStateOf(LocalDateTime.now()) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1000L)
+            currentTime = LocalDateTime.now()
+        }
+    }
+
     // For emul
 //    val customWidth = 340.dp
 //    val customHeight = 150.dp
 //    val buttonFontSize = 50.sp
+
     // For Demo
     val customWidth = 200.dp
     val customHeight = 80.dp
     val buttonFontSize = 20.sp
 
-    Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.inverseOnSurface)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.inverseOnSurface)) {
         Row(modifier = modifier.padding(20.dp)) {
             Column(modifier = modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Digital AI Frame", style = TextStyle(fontSize = 50.sp, color = MaterialTheme.colorScheme.onBackground),
@@ -76,43 +94,54 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                             Log.i("AIButton", selectedOption.toString())
                             sendPostRequest(context, selectedOption, method = "original", viewModel) },
                         shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.width(customWidth * 4 + 10.dp * 3).height(60.dp)
+                        modifier = Modifier
+                            .width(customWidth * 4 + 10.dp * 3)
+                            .height(60.dp)
                     ) { Text("Original", style = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Medium)) }
+
                     Spacer(modifier = Modifier.height(10.dp))
-                    Row(modifier = Modifier.width(1500.dp), horizontalArrangement = Arrangement.Center) {
-                        Button(
-                            onClick = {
-                                Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "gan", viewModel) },
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.width(customWidth).height(customHeight)
-                        ) { Text("Outpainting (GAN)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
-                        Spacer(modifier = Modifier.width(9.dp))
-                        Button(
-                            onClick = {
-                                Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sd1", viewModel) },
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.width(customWidth).height(customHeight)
-                        ) { Text("Outpainting (Diffusion)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
-                        Spacer(modifier = Modifier.width(9.dp))
-                        Button(
-                            onClick = {
-                                Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sr1", viewModel) },
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.width(customWidth).height(customHeight)
-                        ) { Text("Super Resolusion", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
-                        Spacer(modifier = Modifier.width(9.dp))
-                        Button(
-                            onClick = {
-                                Log.i("AIButton", selectedOption.toString())
-                                sendPostRequest(context, selectedOption, method = "sod1", viewModel) },
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier.width(customWidth).height(customHeight)
-                        ) { Text("Crop with Salient OD", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
+//                    Row(modifier = Modifier.width(1500.dp), horizontalArrangement = Arrangement.Center) {
+//                        Button(
+//                            onClick = {
+//                                Log.i("AIButton", selectedOption.toString())
+//                                sendPostRequest(context, selectedOption, method = "gan", viewModel) },
+//                            shape = RoundedCornerShape(10.dp),
+//                            modifier = Modifier
+//                                .width(customWidth)
+//                                .height(customHeight)
+//                        ) { Text("Outpainting (GAN)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
+//                        Spacer(modifier = Modifier.width(9.dp))
+//                        Button(
+//                            onClick = {
+//                                Log.i("AIButton", selectedOption.toString())
+//                                sendPostRequest(context, selectedOption, method = "sd1", viewModel) },
+//                            shape = RoundedCornerShape(10.dp),
+//                            modifier = Modifier
+//                                .width(customWidth)
+//                                .height(customHeight)
+//                        ) { Text("Outpainting (Diffusion)", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
+//                        Spacer(modifier = Modifier.width(9.dp))
+//                        Button(
+//                            onClick = {
+//                                Log.i("AIButton", selectedOption.toString())
+//                                sendPostRequest(context, selectedOption, method = "sr1", viewModel) },
+//                            shape = RoundedCornerShape(10.dp),
+//                            modifier = Modifier
+//                                .width(customWidth)
+//                                .height(customHeight)
+//                        ) { Text("Super Resolusion", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
+//                        Spacer(modifier = Modifier.width(9.dp))
+//                        Button(
+//                            onClick = {
+//                                Log.i("AIButton", selectedOption.toString())
+//                                sendPostRequest(context, selectedOption, method = "sod1", viewModel) },
+//                            shape = RoundedCornerShape(10.dp),
+//                            modifier = Modifier
+//                                .width(customWidth)
+//                                .height(customHeight)
+//                        ) { Text("Crop with Salient OD", style = TextStyle(fontSize = buttonFontSize, fontWeight = FontWeight.Medium)) }
+//                    }
+//                    Spacer(modifier = Modifier.height(10.dp))
                     Button(
                         onClick = {
                             Log.i("AIButton", selectedOption.toString())
@@ -120,18 +149,38 @@ fun Greeting(modifier: Modifier = Modifier, viewModel: ImageViewModel) {
                             sendPostRequest(context, selectedOption, method = "auto", viewModel)
                         },
                         shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.width(customWidth * 4 + 10.dp * 3).height(60.dp)
+                        modifier = Modifier
+                            .width(customWidth * 4 + 10.dp * 3)
+                            .height(60.dp)
                     ) {Text("All At Once", style = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Medium)) }
                 }
             }
         }
 
         viewModel.imageBitmap.value?.let { imageBitmap ->
-            Image(
-                bitmap = imageBitmap,
-                contentDescription = "Selected Image",
-                modifier = Modifier.fillMaxSize().clickable { viewModel.imageBitmap.value = null }
-            )
+            Box {
+                Image(
+                    bitmap = imageBitmap,
+                    contentDescription = "Selected Image",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable { viewModel.imageBitmap.value = null }
+                )
+                Column (modifier = Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally){
+                    Text(
+                        currentTime.format(DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.ENGLISH)),
+                        style = TextStyle(fontSize = 30.sp, color = MaterialTheme.colorScheme.onBackground),
+                        fontWeight = FontWeight.Normal, fontFamily = FontFamily.Monospace
+                    )
+                    Text(
+                        currentTime.format(DateTimeFormatter.ofPattern("h:mm:ss a", Locale.ENGLISH))
+                            .replace("AM", "am")
+                            .replace("PM", "pm"),
+                        style = TextStyle(fontSize = 50.sp, color = MaterialTheme.colorScheme.onBackground),
+                        fontWeight = FontWeight.Normal, fontFamily = FontFamily.Monospace
+                    )
+                }
+            }
         }
     }
 }

@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-06-27T04:35:42.270215Z">
+        <DropdownSelection timestamp="2024-07-01T01:40:35.604272Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/Users/maestr.oh-hdc/.android/avd/Wall_Pad_API_33.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=3157590d010286e1f54" />
             </handle>
           </Target>
         </DropdownSelection>

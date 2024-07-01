@@ -29,15 +29,15 @@ fun RadioImageButton(id: Int, num: Int, selectedOption: Int, viewModel: RadioBut
         modifier = Modifier.combinedClickable(
             onClick = {
                 viewModel.selectOption(num)
-                Log.i("RadioImageButtonGroup", selectedOption.toString())
-            },
-        ),
+                Log.i("RadioImageButtonGroup", selectedOption.toString()) },),
         contentAlignment = Alignment.Center
     ) {
         // For emul
         // Image(modifier = Modifier.width(340.dp).height(340.dp), painter = painterResource(id), contentDescription = "Option $num", contentScale = ContentScale.Crop)
         Image(
-            modifier = Modifier.width(195.dp).height(190.dp),
+            modifier = Modifier
+                .width(130.dp)
+                .height(150.dp),
             painter = painterResource(id),
             contentDescription = "Option $num",
             contentScale = ContentScale.Crop
@@ -56,20 +56,16 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
             RadioImageButton(id = R.drawable.test2, num = 2, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test3, num = 3, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test4, num = 4, selectedOption = selectedOption, viewModel = viewModel)
-        }
-
-        Spacer(modifier = Modifier.height(14.dp))
-
-        Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
             RadioImageButton(id = R.drawable.test5, num = 5, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test6, num = 6, selectedOption = selectedOption, viewModel = viewModel)
-            RadioImageButton(id = R.drawable.test7, num = 7, selectedOption = selectedOption, viewModel = viewModel)
-            RadioImageButton(id = R.drawable.test8, num = 8, selectedOption = selectedOption, viewModel = viewModel)
+
         }
 
         Spacer(modifier = Modifier.height(14.dp))
 
         Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
+            RadioImageButton(id = R.drawable.test7, num = 7, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test8, num = 8, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test9, num = 9, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test10, num = 10, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test11, num = 11, selectedOption = selectedOption, viewModel = viewModel)
@@ -83,15 +79,16 @@ fun RadioImageButtonGroup(viewModel: RadioButtonViewModel) {
             RadioImageButton(id = R.drawable.test14, num = 14, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test15, num = 15, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test16, num = 16, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test17, num = 17, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test18, num = 18, selectedOption = selectedOption, viewModel = viewModel)
         }
 
         Spacer(modifier = Modifier.height(14.dp))
 
         Row(horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(1500.dp)) {
-            RadioImageButton(id = R.drawable.test17, num = 17, selectedOption = selectedOption, viewModel = viewModel)
-            RadioImageButton(id = R.drawable.test18, num = 18, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test19, num = 19, selectedOption = selectedOption, viewModel = viewModel)
             RadioImageButton(id = R.drawable.test20, num = 20, selectedOption = selectedOption, viewModel = viewModel)
+            RadioImageButton(id = R.drawable.test21, num = 21, selectedOption = selectedOption, viewModel = viewModel)
         }
     }
 }
